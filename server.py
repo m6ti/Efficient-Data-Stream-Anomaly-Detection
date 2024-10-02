@@ -10,13 +10,23 @@ def generate_data(t):
     linear_component = 0.01 * t
 
     # Seasonal component: sine wave to simulate seasonality
-    seasonal_component = 5 * math.sin(t / 100)
+    seasonal_component = 5 * math.sin(t / 100) + 5
 
     # Random noise: small random fluctuation
     noise = random.uniform(-0.5, 0.5)
 
-    # Combine the components
-    return linear_component + seasonal_component + noise
+    anomaly_chance = random.random()  # Random chance for anomalies
+
+    # Introduce some anomalies
+    if anomaly_chance < 0.05:  # 5% chance to introduce an anomaly
+        return (linear_component + seasonal_component + noise) * 3  # Anomaly
+    else:
+        return linear_component + seasonal_component + noise
+
+
+def generate_data_point():
+    base_value = random.uniform(-1, 1)  # Base value
+    noise = random.uniform(-0.1, 0.1)   # Random noise
 
 
 # Server to stream data to a client
